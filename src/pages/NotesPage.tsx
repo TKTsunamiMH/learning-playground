@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useMemo, useState } from 'react';
-import { buildSearchIndex, getTopicOptions, loadNotes } from '../lib/content';
+import { buildSearchIndex, getTopicOptions, loadCheatSheets, loadNotes } from '../lib/content';
 
 const notes = loadNotes();
-const { index } = buildSearchIndex();
+const { index } = buildSearchIndex(notes, loadCheatSheets());
 
 export const NotesPage = () => {
   const [query, setQuery] = useState('');
@@ -17,7 +17,7 @@ export const NotesPage = () => {
     }
 
     const results = index.search(query, { fields: ['title', 'topic', 'tags', 'content'], prefix: true, fuzzy: 0.2 });
-    const found = new Set(results.map((result) => result.slug));
+    const found = new Set(results.filter((result) => result.type === 'note').map((result) => result.slug));
     return baseNotes.filter((note) => found.has(note.slug));
   }, [query, topic]);
 
@@ -62,7 +62,7 @@ export const NotesPage = () => {
                 <Link to={`/notes/${note.slug}`}>{note.title}</Link>
               </h3>
               <div className="tag-row">
-                {note.tags.map((tag) => (
+                {note.tags.map((tag: string) => (
                   <span key={`${note.slug}-${tag}`} className="tag">
                     #{tag}
                   </span>

@@ -26,7 +26,7 @@ export const CheatSheetDetailPage = () => {
       </div>
       <h1>{sheet.title}</h1>
       <div className="tag-row">
-        {sheet.tags.map((tag) => (
+        {sheet.tags.map((tag: string) => (
           <span key={`${sheet.slug}-${tag}`} className="tag">
             #{tag}
           </span>

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useMemo, useState } from 'react';
-import { buildSearchIndex, getTopicOptions, loadCheatSheets } from '../lib/content';
+import { buildSearchIndex, getTopicOptions, loadCheatSheets, loadNotes } from '../lib/content';
 
 const sheets = loadCheatSheets();
-const { index } = buildSearchIndex();
+const { index } = buildSearchIndex(loadNotes(), sheets);
 
 export const CheatSheetsPage = () => {
   const [query, setQuery] = useState('');
@@ -60,7 +60,7 @@ export const CheatSheetsPage = () => {
                 <Link to={`/cheatsheets/${sheet.slug}`}>{sheet.title}</Link>
               </h3>
               <div className="tag-row">
-                {sheet.tags.map((tag) => (
+                {sheet.tags.map((tag: string) => (
                   <span key={`${sheet.slug}-${tag}`} className="tag">
                     #{tag}
                   </span>

@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { FavoriteToggle } from '../components/FavoriteToggle';
 import { MarkdownRenderer } from '../components/MarkdownRenderer';
 import { loadNotes } from '../lib/content';
 
@@ -26,7 +27,7 @@ export const NoteDetailPage = () => {
       </div>
       <h1>{note.title}</h1>
       <div className="tag-row">
-        {note.tags.map((tag) => (
+        {note.tags.map((tag: string) => (
           <span key={`${note.slug}-${tag}`} className="tag">
             #{tag}
           </span>
@@ -36,6 +37,7 @@ export const NoteDetailPage = () => {
         <Link className="secondary-btn" to="/notes">
           ← Back to notes
         </Link>
+        <FavoriteToggle slug={note.slug} label={note.title} />
       </div>
       <MarkdownRenderer markdown={note.content} />
     </article>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loadNotes } from '../lib/content';
+import { readFavorites } from '../lib/favorites';
 
 const notes = loadNotes();
 
@@ -8,8 +9,11 @@ export const FavoritesPage = () => {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('dev-playground-favorites') ?? '[]') as string[];
-    setFavorites(saved);
+    const refresh = () => setFavorites(readFavorites());
+    refresh();
+    window.addEventListener('favorites:updated', refresh);
+
+    return () => window.removeEventListener('favorites:updated', refresh);
   }, []);
 
   const favoriteNotes = notes.filter((note) => favorites.includes(note.slug));
@@ -32,7 +36,7 @@ export const FavoritesPage = () => {
                 <Link to={`/notes/${note.slug}`}>{note.title}</Link>
               </h3>
               <div className="tag-row">
-                {note.tags.map((tag) => (
+                {note.tags.map((tag: string) => (
                   <span key={`${note.slug}-${tag}`} className="tag">
                     #{tag}
                   </span>
