@@ -1,0 +1,29 @@
+export type Theme = 'light' | 'dark';
+
+export type ContentFrontMatter = {
+  title: string;
+  topic: string;
+  tags: string[];
+  date: string;
+};
+
+export type ContentItem = ContentFrontMatter & {
+  slug: string;
+  content: string;
+  sourcePath: string;
+};
+
+export type NoteItem = ContentItem;
+
+export type CheatSheetItem = ContentItem;
+
+export type SearchItem = {
+  id: string;
+  title: string;
+  topic: string;
+  tags: string[];
+  type: 'note' | 'cheatsheet';
+  content: string;
+  date: string;
+  slug: string;
+};
