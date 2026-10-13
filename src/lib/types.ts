@@ -27,3 +27,19 @@ export type SearchItem = {
   date: string;
   slug: string;
 };
+
+export type TopicMetadata = {
+  name: string;
+  description?: string;
+  icon?: string;
+  sortOrder?: number;
+};
+
+export type TopicSummary = {
+  name: string;
+  slug: string;
+  count: number;
+  description?: string;
+  icon?: string;
+  sortOrder: number;
+};

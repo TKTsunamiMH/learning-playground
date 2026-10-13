@@ -1,0 +1,26 @@
+[
+  {
+    "name": "HTML",
+    "description": "Core HTML structure, semantics, forms, and accessibility basics.",
+    "icon": "🌐",
+    "sortOrder": 10
+  },
+  {
+    "name": "Web Basics",
+    "description": "Foundational web development concepts and HTTP essentials.",
+    "icon": "🧭",
+    "sortOrder": 20
+  },
+  {
+    "name": "React",
+    "description": "React patterns, routing, and component-driven UI notes.",
+    "icon": "⚛️",
+    "sortOrder": 30
+  },
+  {
+    "name": "General",
+    "description": "Miscellaneous notes that do not fit a specific topic yet.",
+    "icon": "🗂️",
+    "sortOrder": 999
+  }
+]

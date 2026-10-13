@@ -5,6 +5,7 @@ A personal learning website for notes, cheat sheets, and quick references built 
 ## Features
 
 - Notes stored as Markdown files in `content/notes` with frontmatter
+- Topic-based notes navigation with automatic topic discovery
 - Cheat sheets stored in `content/cheatsheets`
 - Instant client-side search with topic and tag filtering
 - Copy button for code blocks
@@ -50,4 +51,29 @@ date: 2026-10-10
 ---
 ```
 
-The site reads new files automatically without code changes.
+Notes are grouped by `topic` automatically. Any new topic name appears on the `/notes` overview without code changes.
+
+### Notes structure
+
+- `/notes` shows topic cards with note counts.
+- `/notes/:topic` shows all notes for that topic.
+- `/notes/:topic/:slug` shows the note detail view.
+
+### Optional topic metadata
+
+You can customize topic cards with optional metadata in `content/topics.json`:
+
+```json
+[
+  {
+    "name": "HTML",
+    "description": "Core HTML structure and semantics.",
+    "icon": "🌐",
+    "sortOrder": 10
+  }
+]
+```
+
+- `name` must match the note frontmatter `topic` exactly.
+- `description`, `icon`, and `sortOrder` are optional.
+- Topics not listed still work with default display values.

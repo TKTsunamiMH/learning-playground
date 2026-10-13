@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loadNotes } from '../lib/content';
+import { getNotePath, loadNotes } from '../lib/content';
 import { readFavorites } from '../lib/favorites';
 
 const notes = loadNotes();
@@ -33,7 +33,7 @@ export const FavoritesPage = () => {
                 {note.date} · {note.topic}
               </div>
               <h3>
-                <Link to={`/notes/${note.slug}`}>{note.title}</Link>
+                <Link to={getNotePath(note)}>{note.title}</Link>
               </h3>
               <div className="tag-row">
                 {note.tags.map((tag: string) => (

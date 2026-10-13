@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { HomePage } from './pages/HomePage';
 import { NotesPage } from './pages/NotesPage';
 import { NoteDetailPage } from './pages/NoteDetailPage';
+import { TopicNotesPage } from './pages/TopicNotesPage';
 import { CheatSheetsPage } from './pages/CheatSheetsPage';
 import { CheatSheetDetailPage } from './pages/CheatSheetDetailPage';
 import { FavoritesPage } from './pages/FavoritesPage';
@@ -69,7 +70,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/notes/:slug" element={<NoteDetailPage />} />
+          <Route path="/notes/:topic" element={<TopicNotesPage />} />
+          <Route path="/notes/:topic/:slug" element={<NoteDetailPage />} />
           <Route path="/cheatsheets" element={<CheatSheetsPage />} />
           <Route path="/cheatsheets/:slug" element={<CheatSheetDetailPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />

@@ -1,6 +1,6 @@
 ---
 title: HTTP and REST
-topic: Backend
+topic: Web Basics
 tags: [http, api, backend]
 date: 2026-10-05
 ---

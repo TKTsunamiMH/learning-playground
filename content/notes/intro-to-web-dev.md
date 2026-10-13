@@ -1,6 +1,6 @@
 ---
 title: Intro to Web Development
-topic: Frontend
+topic: Web Basics
 tags: [web, html, css]
 date: 2026-10-01
 ---
