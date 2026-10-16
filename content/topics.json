@@ -18,6 +18,12 @@
     "sortOrder": 30
   },
   {
+    "name": "Terminal",
+    "description": "Everyday command-line commands for navigating, files, Git, npm, and .NET.",
+    "icon": "⌨️",
+    "sortOrder": 40
+  },
+  {
     "name": "General",
     "description": "Miscellaneous notes that do not fit a specific topic yet.",
     "icon": "🗂️",
