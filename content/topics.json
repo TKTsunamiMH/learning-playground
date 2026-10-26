@@ -24,6 +24,12 @@
     "sortOrder": 40
   },
   {
+    "name": "Markdown & Mermaid",
+    "description": "Markdown formatting, syntax, and Mermaid diagram creation.",
+    "icon": "📝",
+    "sortOrder": 50
+  },
+  {
     "name": "General",
     "description": "Miscellaneous notes that do not fit a specific topic yet.",
     "icon": "🗂️",

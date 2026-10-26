@@ -9,6 +9,7 @@ A personal learning website for notes, cheat sheets, and quick references built 
 - Cheat sheets stored in `content/cheatsheets`
 - Instant client-side search with topic and tag filtering
 - Copy button for code blocks
+- **Mermaid diagram support**: render diagrams from code blocks with live theme support
 - Favorites saved in localStorage
 - Dark/light mode with browser persistence
 - Responsive layout for desktop and mobile
@@ -52,6 +53,17 @@ date: 2026-10-10
 ```
 
 Notes are grouped by `topic` automatically. Any new topic name appears on the `/notes` overview without code changes.
+
+### Mermaid diagrams
+
+Render Mermaid diagrams directly in Markdown by using a fenced code block with the `mermaid` language:
+
+```mermaid
+graph TD
+    A[Start] --> B[Process] --> C[End]
+```
+
+The diagram renders with the current theme (light or dark) and re-renders automatically when you switch themes. If there's a syntax error, you'll see a helpful message and the source code.
 
 ### Notes structure
 

@@ -498,3 +498,63 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+.mermaid-container {
+  margin: 18px 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: min-content;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-error {
+  background: var(--panel);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 18px 0;
+  color: var(--text);
+}
+
+.mermaid-error p {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.mermaid-error details {
+  margin-top: 12px;
+}
+
+.mermaid-error summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 500;
+  user-select: none;
+}
+
+.mermaid-error summary:hover {
+  text-decoration: underline;
+}
+
+.mermaid-error pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 12px 0 0 0;
+  font-size: 0.9em;
+}
