@@ -3,9 +3,9 @@ import type { CheatSheetItem, ContentFrontMatter, NoteItem, SearchItem, TopicMet
 
 const SEARCH_CONTENT_PREVIEW_LENGTH = 800;
 
-const noteModules = import.meta.glob('/content/notes/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
-const cheatsheetModules = import.meta.glob('/content/cheatsheets/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
-const topicMetadataModule = import.meta.glob('/content/topics.json', { eager: true, import: 'default' }) as Record<string, unknown>;
+const noteModules = import.meta.glob('../../content/notes/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
+const cheatsheetModules = import.meta.glob('../../content/cheatsheets/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
+const topicMetadataModule = import.meta.glob('../../content/topics.json', { eager: true, import: 'default' }) as Record<string, unknown>;
 
 const TITLE_ACRONYMS = new Set(['api', 'css', 'csharp', 'dotnet', 'git', 'html', 'http', 'js', 'json', 'rest', 'seo', 'sql', 'ts', 'ui', 'ux']);
 

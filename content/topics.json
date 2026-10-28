@@ -18,6 +18,12 @@
     "sortOrder": 30
   },
   {
+    "name": "Git",
+    "description": "Version control, Git workflow, GitHub collaboration, and best practices.",
+    "icon": "🌿",
+    "sortOrder": 35
+  },
+  {
     "name": "Terminal",
     "description": "Everyday command-line commands for navigating, files, Git, npm, and .NET.",
     "icon": "⌨️",
