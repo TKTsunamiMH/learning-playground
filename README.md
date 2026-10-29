@@ -7,7 +7,9 @@ A personal learning website for notes, cheat sheets, and quick references built 
 - Notes stored as Markdown files in `content/notes` with frontmatter
 - Topic-based notes navigation with automatic topic discovery
 - Cheat sheets stored in `content/cheatsheets`
+- Glossary terms stored in `content/glossary`
 - Instant client-side search with topic and tag filtering
+- Glossary practice mode with flashcards and local progress tracking
 - Copy button for code blocks
 - **Mermaid diagram support**: render diagrams from code blocks with live theme support
 - Favorites saved in localStorage
@@ -40,6 +42,7 @@ Create a markdown file inside one of the content folders:
 
 - `content/notes/*.md`
 - `content/cheatsheets/*.md`
+- `content/glossary/*.md`
 
 Each file uses frontmatter like:
 
@@ -53,6 +56,35 @@ date: 2026-10-10
 ```
 
 Notes are grouped by `topic` automatically. Any new topic name appears on the `/notes` overview without code changes.
+
+Glossary terms are loaded automatically from `content/glossary`. Adding a new term only requires a new `.md` file.
+
+### Glossary frontmatter
+
+Each glossary file should use:
+
+```md
+---
+term: CI/CD
+fullName: Continuous Integration / Continuous Delivery
+category: Workflow & DevOps
+tags: [devops, github, automation]
+date: 2026-10-29
+---
+```
+
+Required body sections:
+
+- `## In short`
+- `## What it means for a .NET Full Stack developer`
+- `## Example`
+- `## Related terms`
+
+### Glossary routes
+
+- `/glossary` term cards with search and category filter
+- `/glossary/:slug` term detail page with favorites
+- `/glossary/practice` flashcards with category filtering, shuffle, and missed-term review mode
 
 ### Mermaid diagrams
 

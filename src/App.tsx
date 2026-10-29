@@ -7,12 +7,16 @@ import { TopicNotesPage } from './pages/TopicNotesPage';
 import { CheatSheetsPage } from './pages/CheatSheetsPage';
 import { CheatSheetDetailPage } from './pages/CheatSheetDetailPage';
 import { FavoritesPage } from './pages/FavoritesPage';
+import { GlossaryPage } from './pages/GlossaryPage';
+import { GlossaryDetailPage } from './pages/GlossaryDetailPage';
+import { GlossaryPracticePage } from './pages/GlossaryPracticePage';
 import type { Theme } from './lib/types';
 
 const navItems = [
   { to: '/', label: 'Home' },
   { to: '/notes', label: 'Notes' },
   { to: '/cheatsheets', label: 'Cheat Sheets' },
+  { to: '/glossary', label: 'Glossary' },
   { to: '/favorites', label: 'Favorites' },
 ];
 
@@ -39,7 +43,7 @@ function App() {
           <div className="brand-mark">dev</div>
           <div>
             <div className="brand-name">dev-playground</div>
-            <div className="brand-subtitle">Learning notes & cheat sheets</div>
+            <div className="brand-subtitle">Learning notes, cheat sheets & glossary</div>
           </div>
         </div>
 
@@ -74,6 +78,9 @@ function App() {
           <Route path="/notes/:topic/:slug" element={<NoteDetailPage />} />
           <Route path="/cheatsheets" element={<CheatSheetsPage />} />
           <Route path="/cheatsheets/:slug" element={<CheatSheetDetailPage />} />
+          <Route path="/glossary" element={<GlossaryPage />} />
+          <Route path="/glossary/practice" element={<GlossaryPracticePage />} />
+          <Route path="/glossary/:slug" element={<GlossaryDetailPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
       </main>

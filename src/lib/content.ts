@@ -1,10 +1,11 @@
 import MiniSearch from 'minisearch';
-import type { CheatSheetItem, ContentFrontMatter, NoteItem, SearchItem, TopicMetadata, TopicSummary } from './types';
+import type { CheatSheetItem, ContentFrontMatter, GlossaryCategory, GlossaryFrontMatter, GlossaryItem, NoteItem, SearchItem, TopicMetadata, TopicSummary } from './types';
 
 const SEARCH_CONTENT_PREVIEW_LENGTH = 800;
 
 const noteModules = import.meta.glob('../../content/notes/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
 const cheatsheetModules = import.meta.glob('../../content/cheatsheets/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
+const glossaryModules = import.meta.glob('../../content/glossary/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
 const topicMetadataModule = import.meta.glob('../../content/topics.json', { eager: true, import: 'default' }) as Record<string, unknown>;
 
 const TITLE_ACRONYMS = new Set(['api', 'css', 'csharp', 'dotnet', 'git', 'html', 'http', 'js', 'json', 'rest', 'seo', 'sql', 'ts', 'ui', 'ux']);
@@ -40,6 +41,16 @@ const createTopicSlug = (topic: string): string => {
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-');
+};
+
+const createTermSlug = (term: string): string => {
+  return term
+    .toLowerCase()
+    .replace(/[#/.]/g, ' ')
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
     .replace(/\s+/g, '-');
 };
 
@@ -105,6 +116,42 @@ const normalizeContent = (sourcePath: string, markdown: string): { frontMatter: 
   };
 };
 
+const GLOSSARY_CATEGORIES = new Set<GlossaryCategory>([
+  'Workflow & DevOps',
+  'Backend & .NET',
+  'Frontend & Web',
+  'Databases',
+  'Architecture & Patterns',
+  'Testing',
+  'Web & Security',
+  'Agile & Teamwork',
+  'AI & .NET AI',
+]);
+
+const toGlossaryCategory = (value: string): GlossaryCategory => {
+  if (GLOSSARY_CATEGORIES.has(value as GlossaryCategory)) {
+    return value as GlossaryCategory;
+  }
+
+  return 'Workflow & DevOps';
+};
+
+const extractInShort = (content: string): string => {
+  const match = content.match(/##\s+In short\s*\r?\n([\s\S]*?)(?:\r?\n##\s+|$)/i);
+  if (!match) {
+    return '';
+  }
+
+  const normalized = match[1]
+    .replace(/`/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^\s*[-*]\s+/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return normalized;
+};
+
 export const loadNotes = (): NoteItem[] => {
   return Object.entries(noteModules)
     .map(([sourcePath, markdown]) => {
@@ -133,7 +180,34 @@ export const loadCheatSheets = (): CheatSheetItem[] => {
     .sort((a, b) => +new Date(b.date) - +new Date(a.date));
 };
 
-export const buildSearchIndex = (notes: NoteItem[], cheatSheets: CheatSheetItem[]) => {
+export const loadGlossary = (): GlossaryItem[] => {
+  return Object.entries(glossaryModules)
+    .map(([sourcePath, markdown]) => {
+      const { frontMatter, body } = parseFrontMatter(String(markdown));
+      const fileSlug = sourcePath.split('/').pop()!.replace(/\.md$/, '');
+      const term = String(frontMatter.term ?? createReadableTitle(fileSlug));
+      const fullName = String(frontMatter.fullName ?? term);
+      const category = toGlossaryCategory(String(frontMatter.category ?? 'Workflow & DevOps'));
+      const tags = formatTags(frontMatter.tags);
+      const date = String(frontMatter.date ?? '');
+      const content = body.trim();
+
+      return {
+        term,
+        fullName,
+        category,
+        tags,
+        date,
+        slug: fileSlug || createTermSlug(term),
+        content,
+        sourcePath,
+        inShort: extractInShort(content),
+      };
+    })
+    .sort((a, b) => a.term.localeCompare(b.term));
+};
+
+export const buildSearchIndex = (notes: NoteItem[], cheatSheets: CheatSheetItem[], glossaryItems: GlossaryItem[] = []) => {
   const docs: SearchItem[] = [
     ...notes.map((note) => ({
       id: `note-${note.slug}`,
@@ -154,6 +228,17 @@ export const buildSearchIndex = (notes: NoteItem[], cheatSheets: CheatSheetItem[
       content: sheet.content.slice(0, SEARCH_CONTENT_PREVIEW_LENGTH),
       date: sheet.date,
       slug: sheet.slug,
+    })),
+    ...glossaryItems.map((term) => ({
+      id: `glossary-${term.slug}`,
+      title: term.term,
+      topic: term.category,
+      tags: term.tags,
+      type: 'glossary' as const,
+      content: term.content.slice(0, SEARCH_CONTENT_PREVIEW_LENGTH),
+      date: term.date,
+      slug: term.slug,
+      fullName: term.fullName,
     })),
   ];
 
@@ -182,6 +267,10 @@ export const getTagOptions = (items: Array<{ tags: string[] }>) => {
 
 export const getNotePath = (note: Pick<NoteItem, 'slug' | 'topic'>) => {
   return `/notes/${createTopicSlug(note.topic)}/${note.slug}`;
+};
+
+export const getGlossaryPath = (term: Pick<GlossaryItem, 'slug'>) => {
+  return `/glossary/${term.slug}`;
 };
 
 const readTopicMetadata = (): TopicMetadata[] => {
