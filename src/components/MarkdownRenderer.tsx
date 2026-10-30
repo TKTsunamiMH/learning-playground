@@ -59,7 +59,23 @@ const BlockCode = ({ children, className, ...props }: ComponentPropsWithoutRef<'
       try {
         const { default: mermaid } = await import('mermaid');
 
-        mermaid.initialize({ startOnLoad: false, theme });
+        const themeVariables = theme === 'dark' ? {
+          primaryColor: '#420a0e',
+          primaryTextColor: '#f5ebeb',
+          primaryBorderColor: '#ffb84d',
+          lineColor: '#ff851b',
+          secondaryColor: '#4f1015',
+          tertiaryColor: '#63171d',
+        } : {
+          primaryColor: '#ffffff',
+          primaryTextColor: '#2e0a0d',
+          primaryBorderColor: '#a80f1b',
+          lineColor: '#ff8a1f',
+          secondaryColor: '#ffeede',
+          tertiaryColor: '#ffdcc0',
+        };
+
+        mermaid.initialize({ startOnLoad: false, theme, themeVariables });
 
         const id = `mermaid-${Math.random().toString(36).slice(2)}`;
         const svg = await mermaid.render(id, codeString);
