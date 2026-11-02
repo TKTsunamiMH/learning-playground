@@ -91,22 +91,19 @@ export const GlossaryPage = () => {
             const showAnchor = /[A-Z]/.test(firstLetter) && firstLetter !== prevLetter;
 
             return (
-              <Link
-                key={item.slug}
-                to={getGlossaryPath(item)}
-                className="glossary-card-link"
-                aria-label={`Open glossary term ${item.term}`}
-              >
-                <article className="resource-card glossary-card">
-                  {showAnchor && <span id={`letter-${firstLetter}`} className="letter-anchor" aria-hidden="true" />}
-                  <h2>{item.term}</h2>
-                  <div className="meta-line">{item.fullName}</div>
-                  <p>{item.inShort || 'Open this term to read the short explanation.'}</p>
-                  <div className="tag-row">
-                    <span className="tag">{item.category}</span>
-                  </div>
-                </article>
-              </Link>
+              <article className="resource-card glossary-card has-stretched-link" key={item.slug}>
+                {showAnchor && <span id={`letter-${firstLetter}`} className="letter-anchor" aria-hidden="true" />}
+                <h2>
+                  <Link className="card-title-link" to={getGlossaryPath(item)} aria-label={`Open glossary term ${item.term}`}>
+                    {item.term}
+                  </Link>
+                </h2>
+                <div className="meta-line">{item.fullName}</div>
+                <p>{item.inShort || 'Open this term to read the short explanation.'}</p>
+                <div className="tag-row">
+                  <span className="tag">{item.category}</span>
+                </div>
+              </article>
             );
           })
         )}

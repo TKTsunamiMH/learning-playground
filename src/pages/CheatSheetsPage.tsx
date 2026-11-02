@@ -54,10 +54,10 @@ export const CheatSheetsPage = () => {
           <div className="empty-state">No cheat sheets matched your search.</div>
         ) : (
           filteredSheets.map((sheet) => (
-            <article className="resource-card" key={sheet.slug}>
+            <article className="resource-card has-stretched-link" key={sheet.slug}>
               <div className="meta-line">{sheet.topic}</div>
               <h3>
-                <Link to={`/cheatsheets/${sheet.slug}`}>{sheet.title}</Link>
+                <Link className="card-title-link" to={`/cheatsheets/${sheet.slug}`}>{sheet.title}</Link>
               </h3>
               <div className="tag-row">
                 {sheet.tags.map((tag: string) => (

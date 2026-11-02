@@ -70,10 +70,10 @@ export const NotesPage = () => {
               <div className="empty-state">No notes matched your search.</div>
             ) : (
               filteredNotes.map((note) => (
-                <article className="resource-card" key={note.slug}>
+                <article className="resource-card has-stretched-link" key={note.slug}>
                   <div className="meta-line">{note.date}</div>
                   <h3>
-                    <Link to={getNotePath(note)}>{note.title}</Link>
+                    <Link className="card-title-link" to={getNotePath(note)}>{note.title}</Link>
                   </h3>
                   <div className="meta-line">{note.topic}</div>
                   <div className="tag-row">

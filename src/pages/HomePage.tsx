@@ -76,10 +76,10 @@ export const HomePage = () => {
                 <div className="empty-state">No results found.</div>
               ) : (
                 searchResults.map((result) => (
-                  <article className="article-card" key={result.id}>
+                  <article className="article-card has-stretched-link" key={result.id}>
                     <div className="meta-line">{getResultLabel(result.type)}</div>
                     <h3>
-                      <Link to={getResultPath(result.type, result.slug, result.topic)}>{result.title}</Link>
+                      <Link className="card-title-link" to={getResultPath(result.type, result.slug, result.topic)}>{result.title}</Link>
                     </h3>
                     {result.fullName && <div className="meta-line">{result.fullName}</div>}
                   </article>

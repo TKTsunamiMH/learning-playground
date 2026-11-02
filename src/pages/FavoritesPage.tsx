@@ -30,12 +30,12 @@ export const FavoritesPage = () => {
       ) : (
         <div className="article-list">
           {favoriteNotes.map((note) => (
-            <article className="article-card" key={note.slug}>
+            <article className="article-card has-stretched-link" key={note.slug}>
               <div className="meta-line">
                 {note.date} · {note.topic}
               </div>
               <h3>
-                <Link to={getNotePath(note)}>{note.title}</Link>
+                <Link className="card-title-link" to={getNotePath(note)}>{note.title}</Link>
               </h3>
               <div className="tag-row">
                 {note.tags.map((tag: string) => (
@@ -48,12 +48,12 @@ export const FavoritesPage = () => {
           ))}
 
           {favoriteGlossary.map((term) => (
-            <article className="article-card" key={term.slug}>
+            <article className="article-card has-stretched-link" key={term.slug}>
               <div className="meta-line">
                 {term.date} · Glossary
               </div>
               <h3>
-                <Link to={getGlossaryPath(term)}>{term.term}</Link>
+                <Link className="card-title-link" to={getGlossaryPath(term)}>{term.term}</Link>
               </h3>
               <div className="meta-line">{term.fullName}</div>
               <div className="tag-row">

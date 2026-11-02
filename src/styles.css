@@ -290,6 +290,22 @@ select {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+.has-stretched-link {
+  position: relative;
+  cursor: pointer;
+}
+
+.card-title-link {
+  border-radius: inherit;
+}
+
+.card-title-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
 .resource-card {
   padding: 16px;
 }
@@ -301,6 +317,12 @@ select {
   transform: translateY(-2px);
   border-color: var(--accent);
   box-shadow: 0 14px 26px var(--shadow), 0 0 20px rgba(255, 184, 77, 0.15);
+}
+
+.article-card:focus-within,
+.resource-card:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .note-grid {
@@ -382,10 +404,6 @@ select {
   font-size: 0.85rem;
 }
 
-.glossary-card-link {
-  display: block;
-}
-
 .glossary-card h2 {
   margin: 0;
   font-size: 1.4rem;
@@ -431,6 +449,14 @@ select {
   font-size: 0.8rem;
   padding: 4px 8px;
   background: var(--panel);
+}
+
+.has-stretched-link .favorite-toggle,
+.has-stretched-link .tag-row a,
+.has-stretched-link .tag-row button,
+.has-stretched-link .tag-row [role='button'] {
+  position: relative;
+  z-index: 1;
 }
 
 .practice-checkbox {
